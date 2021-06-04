@@ -4,7 +4,7 @@ ruby '2.5.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11'
 gem 'bootstrap-sass'
-gem 'bcrypt', '3.1.7'
+gem 'bcrypt', '3.1.12'
 # Use SCSS for stylesheets
 gem 'sass-rails', '5.0.3'
 # Use Uglifier as compressor for JavaScript assets
