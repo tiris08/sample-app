@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
   validates :name, presence: true, length: { maximum: 50 }
@@ -9,11 +9,6 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }, allow_blank: true
-
-  # Converts email to all lover-case
-  def downcase_email
-    self.email = email.downcase
-  end
 
   # Returns the hash digest of the given string.
   def User.digest(string)
@@ -60,5 +55,27 @@ class User < ActiveRecord::Base
   # Sends activation email
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
+  end
+
+  # Sets the password reset attribute
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest, User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)  
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
+  private
+
+  # Converts email to all lover-case
+  def downcase_email
+    self.email = email.downcase
   end
 end
