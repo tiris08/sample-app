@@ -66,4 +66,18 @@ class UsersControllerTest < ActionController::TestCase
                                             admin: true }
     assert_not @other_user.reload.admin?
   end
+
+  test "should not show unactivated users in index" do
+    log_in_as(@user)
+    get :index
+    users = assigns(:users)
+    assert users.where(activated: false).empty?
+  end
+  
+  test "should not show unactivated users in show and redirect to home" do
+    log_in_as(@user)
+    @other_user.update_attribute(:activated, false)
+    get :show, id: @other_user
+    assert_redirected_to root_url
+  end
 end
