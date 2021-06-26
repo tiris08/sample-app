@@ -8,6 +8,11 @@ gem 'bcrypt', '3.1.12'
 gem 'faker', '1.4.2'
 gem 'will_paginate', '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'net-ssh'
+gem 'xmlrpc'
 # Use SCSS for stylesheets
 gem 'sass-rails', '5.0.3'
 # Use Uglifier as compressor for JavaScript assets
