@@ -5,7 +5,7 @@ if Rails.env.production?
       :aws_access_key_id =>    ENV['S3_ACCESS_KEY'],
       :aws_secret_access_key => ENV['S3_SECRET_KEY'],
       :region => ENV['AWS_REGION'],
-      :aws_signature_version => 4
+      :aws_signature_version => :v4
     }
     config.cache_dir = "#{Rails.root}/tmp/uploads"                  
 
